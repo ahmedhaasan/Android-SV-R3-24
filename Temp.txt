@@ -1,0 +1,128 @@
+package database;
+
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+
+public  class FXMLDocumentBase extends AnchorPane {
+
+    protected final TextField textField;
+    protected final Text nameText;
+    protected final Text emailText;
+    protected final TextField emailField;
+    protected final TextField passwordField;
+    protected final Text passwordText;
+    protected final Text scoreText;
+    protected final TextField scoreField;
+    protected final Button sendButton;
+
+    public FXMLDocumentBase() {
+        
+
+  
+
+
+        textField = new TextField();
+        nameText = new Text();
+        emailText = new Text();
+        emailField = new TextField();
+        passwordField = new TextField();
+        passwordText = new Text();
+        scoreText = new Text();
+        scoreField = new TextField();
+        sendButton = new Button();
+
+        setMaxHeight(USE_PREF_SIZE);
+        setMaxWidth(USE_PREF_SIZE);
+        setMinHeight(USE_PREF_SIZE);
+        setMinWidth(USE_PREF_SIZE);
+        setPrefHeight(400.0);
+        setPrefWidth(600.0);
+
+        textField.setLayoutX(283.0);
+        textField.setLayoutY(57.0);
+
+        nameText.setLayoutX(117.0);
+        nameText.setLayoutY(78.0);
+        nameText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+        nameText.setStrokeWidth(0.0);
+        nameText.setText("Name");
+        nameText.setWrappingWidth(113.6708984375);
+
+        emailText.setLayoutX(122.0);
+        emailText.setLayoutY(149.0);
+        emailText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+        emailText.setStrokeWidth(0.0);
+        emailText.setText("Email");
+
+        emailField.setLayoutX(283.0);
+        emailField.setLayoutY(117.0);
+        emailField.setPrefHeight(31.0);
+        emailField.setPrefWidth(277.0);
+
+        passwordField.setLayoutX(283.0);
+        passwordField.setLayoutY(178.0);
+
+        passwordText.setLayoutX(126.0);
+        passwordText.setLayoutY(206.0);
+        passwordText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+        passwordText.setStrokeWidth(0.0);
+        passwordText.setText("Password");
+
+        scoreText.setLayoutX(122.0);
+        scoreText.setLayoutY(258.0);
+        scoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+        scoreText.setStrokeWidth(0.0);
+        scoreText.setText("Score");
+        scoreText.setWrappingWidth(51.74560546875);
+
+        scoreField.setLayoutX(283.0);
+        scoreField.setLayoutY(237.0);
+
+        sendButton.setLayoutX(231.0);
+        sendButton.setLayoutY(316.0);
+        sendButton.setMnemonicParsing(false);
+        sendButton.setText("Send");
+        
+        
+        //  work on send 
+        
+          try {
+          clientSocket =  new Socket("127.0.0.1", 5005);
+          inMessage = new DataInputStream(clientSocket.getInputStream());
+          outMessage = new PrintStream (clientSocket.getOutputStream());
+          
+          
+      } catch (IOException ex) {
+          ex.printStackTrace();
+      }
+  
+        
+        sendButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+          
+          outMessage.println();
+
+      }
+  });
+
+        getChildren().add(textField);
+        getChildren().add(nameText);
+        getChildren().add(emailText);
+        getChildren().add(emailField);
+        getChildren().add(passwordField);
+        getChildren().add(passwordText);
+        getChildren().add(scoreText);
+        getChildren().add(scoreField);
+        getChildren().add(sendButton);
+
+    }
+}
