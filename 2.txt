@@ -1,0 +1,105 @@
+  
+        //
+        
+        
+       newContact.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        if (newContact.getText().equals("New")) {
+            isNewPressed = true;
+            EnableTextField(true);
+            clearTextfield (); // clear textFields
+            newContact.setText("Save");
+            isNewPressed = false;
+        } else if (newContact.getText().equals("Save")) {
+            if (!id.getText().isEmpty() || !fristName.getText().isEmpty() ||
+                !lastName.getText().isEmpty() || !midName.getText().isEmpty() ||
+                !email.getText().isEmpty() || !phone.getText().isEmpty()) {
+
+                try {
+                    PreparedStatement add = con.prepareStatement(
+                        "INSERT INTO CONTACTlIST (id, fristName, midName, lastName, email, phone) VALUES (?, ?, ?, ?, ?, ?)"
+                    );
+                    add.setString(1, id.getText());
+                    add.setString(2, fristName.getText());
+                    add.setString(3, midName.getText());
+                    add.setString(4, lastName.getText());
+                    add.setString(5, email.getText());
+                    add.setString(6, phone.getText());
+                    add.executeUpdate();
+                    
+                    // After saving, change the button text back to "New"
+                    newContact.setText("New");
+                    EnableTextField(false);
+                    clearTextfield (); // clear textFields
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                newContact.setText("New");
+            }
+        }
+    }
+});
+       
+       //  work in frist 
+       
+       fristContact.setOnAction(new EventHandler<ActionEvent>() {
+             @Override
+             public void handle(ActionEvent event) {
+               
+                 try {
+                     table.first();
+                     id.setText( table.getString(1))  ;
+                     fristName.setText( table.getString(2));
+                     midName.setText( table.getString(3));
+                     lastName.setText( table.getString(4));
+                     email.setText(table.getString(5));
+                     phone.setText( table.getString(6));
+                 } catch (SQLException ex) {
+                     ex.printStackTrace();
+                 }
+             }
+         });
+       
+       // work on last 
+       
+       lastContact.setOnAction(new EventHandler<ActionEvent>() {
+             @Override
+             public void handle(ActionEvent event) {
+               
+                 try {
+                     table.last();
+                     id.setText( table.getString(1))  ;
+                     fristName.setText( table.getString(2));
+                     midName.setText( table.getString(3));
+                     lastName.setText( table.getString(4));
+                     email.setText(table.getString(5));
+                     phone.setText( table.getString(6));
+                 } catch (SQLException ex) {
+                     ex.printStackTrace();
+                 }
+             }
+         });
+       
+       // work on perivous 
+       
+       previousContact.setOnAction(new EventHandler<ActionEvent>() {
+             @Override
+             public void handle(ActionEvent event) {
+               
+                 try {
+                     table.first();
+                     id.setText( table.getString(1))  ;
+                     fristName.setText( table.getString(2));
+                     midName.setText( table.getString(3));
+                     lastName.setText( table.getString(4));
+                     email.setText(table.getString(5));
+                     phone.setText( table.getString(6));
+                 } catch (SQLException ex) {
+                     ex.printStackTrace();
+                 }
+             }
+         });
+       
